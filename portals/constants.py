@@ -8,6 +8,7 @@ CAMPAIGN_MANAGER    = "Campaign_Manager"
 ADMIN               = "Admin"
 SUPERADMIN          = "Superadmin"
 ACCOUNTANT          = "Accountant"
+EMPLOYEE            = "Employee"
 #Zakat 
 YES                 = "Yes"
 NO                  = "No"

@@ -112,3 +112,9 @@ class PageNotFoundAPI(APIView):
     def get(self,request,*args, **kwargs):
         return Response({"error" : True, "message" : "This API Does not exists in this Application"},status=status.HTTP_404_NOT_FOUND)
 
+
+# filter  api 
+# from date to date purchase sold,sell,all => all details 
+# base amount
+# date wise/specific vehicle  : maintance 
+ 

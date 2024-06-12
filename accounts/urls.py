@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('user',UserApi.as_view()),
-    path('user/<str:pk>', UserApi.as_view()),
+    path('user/<int:pk>', UserApi.as_view()),
 
     
     path('register/nt/',RegisterUserApi.as_view()),
@@ -16,3 +16,4 @@ urlpatterns = [
     path('forgetpassword/nt/',ForgotPasswordAPI.as_view()),
     path('reset-pass/nt/',ResetPasswordAPI.as_view())
 ]
+    
