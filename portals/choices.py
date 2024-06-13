@@ -5,7 +5,7 @@ from django.db import models
 
 class UserChoices(models.TextChoices):
     ADMIN             = ADMIN,ADMIN 
-    ACCOUNTANT        = ACCOUNTANT,ACCOUNTANT
+    EMPLOYEE       = EMPLOYEE,EMPLOYEE
 
 
 

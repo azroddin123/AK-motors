@@ -8,5 +8,4 @@ urlpatterns = [
 
     path('expense',ExpenseApi.as_view()),
     path('expense/<int:pk>', ExpenseApi.as_view()),
-
 ]
