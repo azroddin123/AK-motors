@@ -19,7 +19,7 @@ class User(AbstractBaseUser):
     profile_pic      = models.ImageField(upload_to="user/",null=True,blank=True)
     mobile_number    = models.CharField(max_length=20,unique=True,blank=True,null=True)
     address          = models.CharField(max_length = 50 ,blank=True, null=True)
-    user_type        = models.CharField(choices=UserChoices.choices,default=UserChoices.ACCOUNTANT,max_length=250)
+    user_type        = models.CharField(choices=UserChoices.choices,default=UserChoices.EMPLOYEE,max_length=250)
     accepted_policy  = models.BooleanField(default=False)
     created_on       = models.DateTimeField(auto_now_add=True,editable=False)
     updated_on       = models.DateTimeField(auto_now=True)
