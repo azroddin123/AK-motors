@@ -62,6 +62,8 @@ class ChangePasswordApi(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e :
                 return Response({"error" : True, "message" : str(e)},status=status.HTTP_400_BAD_REQUEST)
+from portals.email_utility import send_email_async
+
 
 class ForgotPasswordAPI(APIView):
     def post(self,request,*args, **kwargs):
@@ -71,11 +73,10 @@ class ForgotPasswordAPI(APIView):
             user = User.objects.get(email=mail)
             print(user)
             otp = randint(1000,9999)
+            send_email_async("Email OTP",otp, [mail])
             res = my_mail(mail,otp)
-            if (res ==1):
-                return Response(data={'Success':'Otp Mail sent successfully to '+ mail,'OTP':str(otp)},status=status.HTTP_200_OK)
-            else:
-                return Response(data={"error": True,"message" : "Error sending Mail"},status=status.HTTP_400_BAD_REQUEST)
+            print(res)
+            return Response(data={'Success':'Otp Mail sent successfully to '+ mail,'OTP':str(otp)},status=status.HTTP_200_OK)
         except:
             return Response(data={"error": True,"message" : "User Email Does not exists"},status=status.HTTP_400_BAD_REQUEST )
 

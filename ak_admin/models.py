@@ -9,6 +9,7 @@ class Investor(models.Model):
     investment_date   = models.DateField(blank=True,null=True)
     returned_amount   = models.PositiveIntegerField(default=0)
     return_date       = models.DateField(blank=True,null=True)
+    remarks           = models.TextField(blank=True,null=True)
     
     def __str__(self):
         return self.investor_name
