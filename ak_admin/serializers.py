@@ -5,18 +5,15 @@ from rest_framework import serializers
 from django.db import models
 
 
-
 class InvestorSerializer(ModelSerializer):
     class Meta :
         model = Investor
         fields = "__all__"
 
-
 class CarSerializer(ModelSerializer):
     class Meta :
         model = CarModel
         fields = "__all__"
-
 
 class VehicleSerializer(ModelSerializer):
     class Meta :

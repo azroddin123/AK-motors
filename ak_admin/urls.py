@@ -10,6 +10,8 @@ urlpatterns = [
     path('car-model/<str:pk>', CarApi.as_view()),
     
     path('vehicle',VehicleApi.as_view()),
-    path('vehicle/<str:pk>', CarApi.as_view()),
+    path('vehicle/<str:pk>', VehicleApi.as_view()),
+    
+    path('export-vehicles/', ExportToExcel.as_view(), name='export-vehicles'),
     
 ]

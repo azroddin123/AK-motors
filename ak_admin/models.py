@@ -26,6 +26,7 @@ class Investor(models.Model):
 
 class CarModel(models.Model):
     brand_name  = models.CharField(max_length=256)
+    
     def __str__(self):
         return self.brand_name
     
@@ -51,8 +52,7 @@ class Vehicle(models.Model):
     sold_date        = models.DateField(blank=True,null=True)
     notes            = models.TextField(blank=True,null=True)
 
-    def __str__(self):
-        return self.model_name
+  
     
     def recalculate_total_amount(self):
         expenses_total = self.expense_set.aggregate(Sum('expense_amount'))['expense_amount__sum'] or 0
