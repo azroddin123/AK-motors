@@ -15,6 +15,7 @@ urlpatterns = [
     path('rto-pending',RTOPendingApi.as_view()),
     path('rto-pending/<str:pk>',RTOPendingApi.as_view()),
     
+    path('dashboard-api',DashboardAPi.as_view()),
     
     path('entry',EntryApi.as_view()),
     path('entry/<str:pk>', EntryApi.as_view()),
