@@ -4,13 +4,32 @@ from rest_framework.views import APIView
 from portals.GM2 import GenericMethodsMixin
 from rest_framework.response import Response
 from rest_framework import status
+from accounts.models import User
 
 
+class DashboardAPi(APIView):
+    def get(self,request,*args,**kwargs):
+        try : 
+            total_investor = Investor.objects.count()        
+            sold_vehicles_count = Vehicle.objects.filter(status="Sold").count() 
+            total_amount = Vehicle.objects.aggregate(total=Sum('total_amount'))
+            total_maintenance_amount = Vehicle.objects.aggregate(total=Sum('maintenance_cost'))
+            total_employee = User.objects.filter(user_type="Employee").count() 
+            data = {
+                'total_investor': total_investor,
+                'sold_vehicles_count': sold_vehicles_count,
+                'total_amount': total_amount,
+                'total_maintenance_amount': total_maintenance_amount,
+                'total_employee': total_employee,
+            }
+            return Response({"error" : False,"data" : data},status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error" : True,"message" : str(e)})
+    
 class InvestorApi(GenericMethodsMixin,APIView):
     model = Investor
     serializer_class = InvestorSerializer
     lookup_field = "id"
-
 
 class CarApi(GenericMethodsMixin,APIView):
     model = CarModel
@@ -25,7 +44,10 @@ class VehicleApi(GenericMethodsMixin,APIView):
     def post(self,request,*args,**kwargs):
         try : 
             data = request.data
+            request.POST._mutable = True
             investor = request.data.get('investor')
+            request.data['investor'] = int(investor)
+            request.data['brand_name']= int(request.data.get('investor'))
             serializer = VehicleSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             vehicle = serializer.save()
@@ -36,7 +58,30 @@ class VehicleApi(GenericMethodsMixin,APIView):
         except Exception as e:
             return Response({"error" : True,"message" : str(e)})
         
-        
+class EntryApi(GenericMethodsMixin,APIView):
+    model  = Entry
+    serializer_class = EntrySerializer
+    lookup_field = "id"
+
+class RTOPendingApi(GenericMethodsMixin,APIView):
+    model = Vehicle
+    serializer_class = VehicleSerializer
+    lookup_field  = "id"
+    
+    def get(self, request, pk=None, *args, **kwargs):
+        try:
+            if pk is None or pk == 0: 
+                vehicles = Vehicle.objects.filter(rto_status=False)
+                serializer = VehicleSerializer(vehicles, many=True)
+                return Response({"error": False, "data": serializer.data}, status=status.HTTP_200_OK)
+            else:
+                vehicle = Vehicle.objects.get(id=pk)
+                serializer = VehicleSerializer(vehicle)
+                return Response({"error": False, "data": serializer.data}, status=status.HTTP_200_OK)
+        except Vehicle.DoesNotExist:
+            return Response({"error": True, "message": "Vehicle not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": True, "message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 from openpyxl import Workbook
 from django.http import HttpResponse

@@ -12,6 +12,13 @@ urlpatterns = [
     path('vehicle',VehicleApi.as_view()),
     path('vehicle/<str:pk>', VehicleApi.as_view()),
     
+    path('rto-pending',RTOPendingApi.as_view()),
+    path('rto-pending/<str:pk>',RTOPendingApi.as_view()),
+    
+    
+    path('entry',EntryApi.as_view()),
+    path('entry/<str:pk>', EntryApi.as_view()),
+    
     path('export-vehicles/', ExportToExcel.as_view(), name='export-vehicles'),
     
 ]

@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Investor)
 admin.site.register(CarModel)
 admin.site.register(Vehicle)
+admin.site.register(Entry)

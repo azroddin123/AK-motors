@@ -37,6 +37,7 @@ class Vehicle(models.Model):
     vehicle_pic      = models.ImageField(upload_to="vehicle/",null=True,blank=True)
     pic2             = models.ImageField(upload_to="vehicle/",null=True,blank=True)
     pic3             = models.ImageField(upload_to="vehicle/",null=True,blank=True)
+    vehicle_no       = models.CharField(max_length=258,null=True,blank=True)
    
     purchase_date    = models.DateField(blank=True,null=True)
     purchase_from    = models.CharField(max_length=258) 
@@ -60,3 +61,8 @@ class Vehicle(models.Model):
         self.save(update_fields=['total_amount'])
     
 
+class Entry(models.Model):
+    investor  = models.ForeignKey(Investor,on_delete=models.CASCADE,null=True,blank=True)
+    date      = models.DateField()
+    notes     = models.TextField()
+    amount    = models.IntegerField()

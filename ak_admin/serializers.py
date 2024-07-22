@@ -19,3 +19,8 @@ class VehicleSerializer(ModelSerializer):
     class Meta :
         model = Vehicle
         fields = "__all__"
+
+class EntrySerializer(ModelSerializer):
+    class Meta :
+        model = Entry 
+        fields = "__all__"

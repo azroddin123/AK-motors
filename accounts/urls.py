@@ -6,7 +6,6 @@ urlpatterns = [
     path('user',UserApi.as_view()),
     path('user/<int:pk>', UserApi.as_view()),
 
-    
     path('register/nt/',RegisterUserApi.as_view()),
     path('user/nt/',UserApi.as_view()),
     
