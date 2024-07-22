@@ -11,16 +11,17 @@ class DashboardAPi(APIView):
     def get(self,request,*args,**kwargs):
         try : 
             total_investor = Investor.objects.count()        
-            sold_vehicles_count = Vehicle.objects.filter(status="Sold").count() 
+            sold_vehicles_count = Vehicle.objects.filter(status="Sold").count()
             total_amount = Vehicle.objects.aggregate(total=Sum('total_amount'))
             total_maintenance_amount = Vehicle.objects.aggregate(total=Sum('maintenance_cost'))
             total_employee = User.objects.filter(user_type="Employee").count() 
             data = {
+                'all_amount': total_amount['total'],
                 'total_investor': total_investor,
                 'sold_vehicles_count': sold_vehicles_count,
-                'total_amount': total_amount,
-                'total_maintenance_amount': total_maintenance_amount,
                 'total_employee': total_employee,
+                'total_maintenance_amount': total_maintenance_amount['total'],
+                
             }
             return Response({"error" : False,"data" : data},status=status.HTTP_200_OK)
         except Exception as e:
